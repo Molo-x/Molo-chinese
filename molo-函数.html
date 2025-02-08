@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      .custom-list {
+          list-style-type: disc;
+      }
+    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Molo 函数 | Molo Pipeline</title>
+<meta name="author" content="Gaoyuan Xu in 2025.02">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="3 Molo 函数 | Molo Pipeline">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Molo 函数 | Molo Pipeline">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content='在本节中，我们将详细介绍Molo包中的各函数的功能和对应的参数设置。  3.1 Molo_Create  3.1.1 功能 从标准格式的原始数据文件创建Molo对象。  3.1.2 参数及含义  data_type：平台类型（如 "Visium"，默认值） folder_path：包含输入文件的目录路径（默认当前目录 "./"） n_cells：可选参数，指定子集化的细胞数量（默认不限制）...'>
+<meta property="og:description" content='在本节中，我们将详细介绍Molo包中的各函数的功能和对应的参数设置。  3.1 Molo_Create  3.1.1 功能 从标准格式的原始数据文件创建Molo对象。  3.1.2 参数及含义  data_type：平台类型（如 "Visium"，默认值） folder_path：包含输入文件的目录路径（默认当前目录 "./"） n_cells：可选参数，指定子集化的细胞数量（默认不限制）...'>
+<meta name="twitter:description" content='在本节中，我们将详细介绍Molo包中的各函数的功能和对应的参数设置。  3.1 Molo_Create  3.1.1 功能 从标准格式的原始数据文件创建Molo对象。  3.1.2 参数及含义  data_type：平台类型（如 "Visium"，默认值） folder_path：包含输入文件的目录路径（默认当前目录 "./"） n_cells：可选参数，指定子集化的细胞数量（默认不限制）...'>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Molo Pipeline</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">欢迎</a></li>
+<li><a class="" href="%E4%BB%8B%E7%BB%8D.html"><span class="header-section-number">1</span> 介绍</a></li>
+<li><a class="" href="%E5%AE%89%E8%A3%85.html"><span class="header-section-number">2</span> 安装</a></li>
+<li><a class="active" href="molo-%E5%87%BD%E6%95%B0.html"><span class="header-section-number">3</span> Molo 函数</a></li>
+<li><a class="" href="%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B.html"><span class="header-section-number">4</span> 基础流程</a></li>
+<li><a class="" href="web-page.html"><span class="header-section-number">5</span> Web Page</a></li>
+<li><a class="" href="faq.html"><span class="header-section-number">6</span> FAQ</a></li>
+</ul>
+
+
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="molo-函数" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Molo 函数<a class="anchor" aria-label="anchor" href="#molo-%E5%87%BD%E6%95%B0"><i class="fas fa-link"></i></a>
+</h1>
+<p>在本节中，我们将详细介绍<strong>Molo包中的各函数的功能和对应的参数设置</strong>。</p>
+<div id="molo_create" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Molo_Create<a class="anchor" aria-label="anchor" href="#molo_create"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD"><i class="fas fa-link"></i></a>
+</h3>
+<p>从标准格式的原始数据文件创建Molo对象。</p>
+</div>
+<div id="参数及含义" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>data_type</strong>：平台类型（如 <code>"Visium"</code>，默认值）</li>
+<li>
+<strong>folder_path</strong>：包含输入文件的目录路径（默认当前目录 <code>"./"</code>）</li>
+<li>
+<strong>n_cells</strong>：可选参数，指定子集化的细胞数量（默认不限制）</li>
+<li>
+<strong>n_features</strong>：可选参数，指定特征选择数量（默认不限制）</li>
+<li>
+<strong>ATAC_dataset</strong>：ATAC-seq参考基因组物种（可选 <code>"mouse"</code> 或 <code>"human"</code>，默认 <code>"mouse"</code>）</li>
+<li>
+<strong>CODEX_type</strong>：多重成像平台类型（默认 <code>"processor"</code>）</li>
+<li>
+<strong>softmax</strong>：是否应用softmax标准化（逻辑值，默认 <code>FALSE</code>）</li>
+<li>
+<strong>custom_index</strong>：自定义索引列标识符（默认 <code>"__index_level_0__"</code>）</li>
+</ul>
+</div>
+<div id="返回值" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><i class="fas fa-link"></i></a>
+</h3>
+<p>构造完成的Molo对象。</p>
+</div>
+<div id="基础示例" class="section level3" number="3.1.4">
+<h3>
+<span class="header-section-number">3.1.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_Create</span><span class="op">(</span>data_type <span class="op">=</span> <span class="st">"Visium"</span>, </span>
+<span>                        folder_path <span class="op">=</span> <span class="st">"./Visium/"</span>,</span>
+<span>                        n_cells <span class="op">=</span> <span class="fl">2000</span>, </span>
+<span>                        n_features <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_reduction_cluster" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Molo_reduction_cluster<a class="anchor" aria-label="anchor" href="#molo_reduction_cluster"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-1" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>对Molo对象执行降维与聚类分析。</p>
+</div>
+<div id="参数及含义-1" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-1"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj</strong>：输入的Molo对象</li>
+<li>
+<strong>only_QC</strong>：是否仅执行质量控制过滤步骤（逻辑值）</li>
+<li>
+<strong>nFeature_range</strong>：有效基因数范围（向量格式，如 <code>c(200, 2500)</code>）</li>
+<li>
+<strong>nCount_range</strong>：有效UMI数范围（向量格式，如 <code>c(500, 15000)</code>）</li>
+<li>
+<strong>molo_env</strong>：运行时配置参数（环境变量对象）</li>
+<li>
+<strong>labeled_ref</strong>：参考标注数据集的文件路径（推荐使用rds格式的seurat对象）</li>
+<li>
+<strong>molo_plot_path</strong>：结果图像输出目录路径（默认根据环境变量生成）</li>
+<li>
+<strong>save_type</strong>：结果保存格式（如静态图像<code>"png"</code>/交互式图像<code>"echarts"</code>）</li>
+<li>
+<strong>run_Banksy</strong>：是否启用Banksy空间聚类（逻辑值）</li>
+<li>
+<strong>image_alpha</strong>：空间图像透明度（数值范围0-1）</li>
+<li>
+<strong>pt_size</strong>：可视化点大小（数值，默认根据数据规模自动调整）</li>
+<li>
+<strong>atac_steps</strong>：ATAC-seq数据处理流程步骤标识符（字符向量）</li>
+<li>
+<strong>show_progress</strong>：是否显示进度信息（逻辑值）</li>
+</ul>
+</div>
+<div id="返回值-1" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>包含降维嵌入结果和聚类标签的Molo对象。</p>
+</div>
+<div id="基础示例-1" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_reduction_cluster</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">molo_obj</span>,</span>
+<span>                                   only_QC <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                   nFeature_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" target="_blank">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">2500</span><span class="op">)</span>,</span>
+<span>                                   nCount_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" target="_blank">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">15000</span><span class="op">)</span>,</span>
+<span>                                   molo_plot_path <span class="op">=</span> <span class="st">"./plots/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_var_features" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Molo_var_features<a class="anchor" aria-label="anchor" href="#molo_var_features"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-2" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>识别Molo对象中的空间可变特征和标记基因。</p>
+</div>
+<div id="参数及含义-2" class="section level3" number="3.3.2">
+<h3>
+<span class="header-section-number">3.3.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-2"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj</strong>：输入的Molo对象</li>
+<li>
+<strong>features</strong>：预定义分析特征集合（可选，默认分析全部特征）</li>
+<li>
+<strong>sp_var_features</strong>：需筛选的顶级空间可变特征数量（数值）</li>
+<li>
+<strong>molo_plot_path</strong>：可视化结果存储目录（默认根据环境变量生成）</li>
+<li>
+<strong>save_type</strong>：输出图像文件格式（如静态图像<code>"png"</code>/交互式图像<code>"echarts"</code>）</li>
+<li>
+<strong>font_size</strong>：可视化图表文字大小（数值，默认 <code>12</code>）</li>
+<li>
+<strong>image_alpha</strong>：空间图层透明度（数值范围 <code>0-1</code>，默认 <code>0.6</code>）</li>
+<li>
+<strong>pt_size</strong>：特征表达点的可视化尺寸（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>show_progress</strong>：是否显示处理进度（逻辑值，默认 <code>TRUE</code>）</li>
+</ul>
+</div>
+<div id="返回值-2" class="section level3" number="3.3.3">
+<h3>
+<span class="header-section-number">3.3.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>包含空间可变特征分析结果的Molo对象。</p>
+</div>
+<div id="基础示例-2" class="section level3" number="3.3.4">
+<h3>
+<span class="header-section-number">3.3.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-2"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_var_features</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">molo_obj</span>,</span>
+<span>                              sp_var_features <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>                              molo_plot_path <span class="op">=</span> <span class="st">"./plots/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_top_go_terms" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Molo_top_GO_terms<a class="anchor" aria-label="anchor" href="#molo_top_go_terms"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-3" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>执行GO富集分析并可视化各聚类核心通路。</p>
+</div>
+<div id="参数及含义-3" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-3"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj</strong>：包含聚类注释的Molo对象</li>
+<li>
+<strong>dataset</strong>：基因注释的物种数据库（可选 <code>"mouse"</code> 或 <code>"human"</code>）</li>
+<li>
+<strong>plot_cols</strong>：可视化自定义调色板（可选，默认使用内置配色）</li>
+<li>
+<strong>molo_plot_path</strong>：GO结果图像存储目录路径（默认根据环境变量生成）</li>
+<li>
+<strong>font_size</strong>：可视化图表标签文字大小（数值，默认 <code>12</code>）</li>
+<li>
+<strong>show_progress</strong>：是否显示处理进度（逻辑值，默认 <code>TRUE</code>）</li>
+</ul>
+</div>
+<div id="返回值-3" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>包含GO富集分析结果的Molo对象。</p>
+</div>
+<div id="基础示例-3" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-3"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_top_GO_terms</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">molo_obj</span>,</span>
+<span>                              dataset <span class="op">=</span> <span class="st">"mouse"</span>,</span>
+<span>                              molo_plot_path <span class="op">=</span> <span class="st">"./plots/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_cell_chat" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Molo_cell_chat<a class="anchor" aria-label="anchor" href="#molo_cell_chat"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-4" class="section level3" number="3.5.1">
+<h3>
+<span class="header-section-number">3.5.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>使用CellChat进行细胞间通讯分析。</p>
+</div>
+<div id="参数及含义-4" class="section level3" number="3.5.2">
+<h3>
+<span class="header-section-number">3.5.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-4"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj</strong>：包含细胞类型注释的Molo对象</li>
+<li>
+<strong>plot_cols</strong>：细胞群组的自定义颜色映射（可选，默认使用内置配色）</li>
+<li>
+<strong>dataset</strong>：配体-受体对的物种数据库（可选 <code>"mouse"</code> 或 <code>"human"</code>）</li>
+<li>
+<strong>molo_plot_path</strong>：细胞通讯分析结果图像输出目录路径（默认根据环境变量生成）</li>
+<li>
+<strong>font_size</strong>：可视化图表标签文字大小（数值，默认 <code>12</code>）</li>
+<li>
+<strong>show_progress</strong>：是否显示处理进度（逻辑值，默认 <code>TRUE</code>）</li>
+</ul>
+</div>
+<div id="返回值-4" class="section level3" number="3.5.3">
+<h3>
+<span class="header-section-number">3.5.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>包含CellChat分析结果的Molo对象。</p>
+</div>
+<div id="基础示例-4" class="section level3" number="3.5.4">
+<h3>
+<span class="header-section-number">3.5.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-4"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_cell_chat</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">molo_obj</span>,</span>
+<span>                           dataset <span class="op">=</span> <span class="st">"mouse"</span>,</span>
+<span>                           molo_plot_path <span class="op">=</span> <span class="st">"./plots/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_traj" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Molo_traj<a class="anchor" aria-label="anchor" href="#molo_traj"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-5" class="section level3" number="3.6.1">
+<h3>
+<span class="header-section-number">3.6.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>使用Monocle3进行细胞轨迹推断。</p>
+</div>
+<div id="参数及含义-5" class="section level3" number="3.6.2">
+<h3>
+<span class="header-section-number">3.6.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-5"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj</strong>：包含降维结果的Molo对象</li>
+<li>
+<strong>plot_cols</strong>：轨迹自定义颜色映射（可选，默认使用内置配色）</li>
+<li>
+<strong>molo_plot_path</strong>：轨迹分析结果图像存储目录路径（默认根据环境变量生成）</li>
+<li>
+<strong>show_progress</strong>：是否显示处理进度（逻辑值，默认 <code>TRUE</code>）</li>
+</ul>
+</div>
+<div id="返回值-5" class="section level3" number="3.6.3">
+<h3>
+<span class="header-section-number">3.6.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>包含轨迹推断元数据的Molo对象。</p>
+</div>
+<div id="基础示例-5" class="section level3" number="3.6.4">
+<h3>
+<span class="header-section-number">3.6.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-5"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">molo_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_traj</span><span class="op">(</span>obj <span class="op">=</span> <span class="va">molo_obj</span>, molo_plot_path <span class="op">=</span> <span class="st">"./plots/"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="molo_integrate" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> Molo_Integrate<a class="anchor" aria-label="anchor" href="#molo_integrate"><i class="fas fa-link"></i></a>
+</h2>
+<div id="功能-6" class="section level3" number="3.7.1">
+<h3>
+<span class="header-section-number">3.7.1</span> 功能<a class="anchor" aria-label="anchor" href="#%E5%8A%9F%E8%83%BD-6"><i class="fas fa-link"></i></a>
+</h3>
+<p>使用Molo框架进行空间数据整合。</p>
+</div>
+<div id="参数及含义-6" class="section level3" number="3.7.2">
+<h3>
+<span class="header-section-number">3.7.2</span> 参数及含义<a class="anchor" aria-label="anchor" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-6"><i class="fas fa-link"></i></a>
+</h3>
+<ul class="custom-list">
+<li>
+<strong>obj_list</strong>：输入Molo对象的列表</li>
+<li>
+<strong>var_features</strong>：高变特征筛选数量（整数，默认 <code>3000</code>）</li>
+<li>
+<strong>py_path</strong>：Python解释器可执行文件路径（默认 <code>"home/user/anaconda3/envs/Molo/bin/python"</code>）</li>
+<li>
+<strong>device</strong>：模型训练计算设备（可选 <code>"cuda:0"</code>/<code>"cpu"</code>，默认 <code>"cuda:0"</code>）</li>
+<li>
+<strong>save_path</strong>：整合结果存储目录路径（默认 <code>"./molo_save/"</code>）</li>
+<li>
+<strong>pretrain_epoch</strong>：预训练迭代次数（整数，默认 <code>100</code>）</li>
+<li>
+<strong>train_epoch</strong>：主训练迭代次数（整数，默认 <code>300</code>）</li>
+<li>
+<strong>tmp</strong>：中间文件临时存储目录（默认 <code>"./_molo_tmp/"</code>）</li>
+<li>
+<strong>edge</strong>：边构建策略（字符，默认 <code>"together"</code>）</li>
+<li>
+<strong>sp_alignment</strong>：空间对齐方法（字符，默认 <code>"Molo"</code>）</li>
+<li>
+<strong>plot_3D_width</strong>：3D可视化图像宽度（数值，默认 <code>8.0</code>）</li>
+<li>
+<strong>plot_3D_height</strong>：3D可视化图像高度（数值，默认 <code>6.0</code>）</li>
+<li>
+<strong>plot_3D_spot_size</strong>：3D图中点尺寸（数值，默认 <code>0.5</code>）</li>
+<li>
+<strong>dist_threshold</strong>：空间匹配最大距离阈值（数值，默认 <code>5.0</code>）</li>
+<li>
+<strong>pis_path</strong>：预计算对齐概率文件路径（可选，默认 <code>NULL</code>）</li>
+<li>
+<strong>sp_alignment_s</strong>：空间对齐正则化强度（数值，默认 <code>0.7</code>）</li>
+<li>
+<strong>use_harmony</strong>：是否启用Harmony整合校正（逻辑值，默认 <code>FALSE</code>）</li>
+<li>
+<strong>compute_iLISI</strong>：是否计算整合质量指标（逻辑值，默认 <code>TRUE</code>）</li>
+<li>
+<strong>edge_type</strong>：边连接类型（字符，默认 <code>"together"</code>）</li>
+<li>
+<strong>edge_sp</strong>：空间邻域边数量（整数，默认 <code>10</code>）</li>
+<li>
+<strong>edge_mtx</strong>：特征相似性边数量（整数，默认 <code>10</code>）</li>
+<li>
+<strong>hidden_dims</strong>：神经网络隐藏层维度（整数，默认 <code>250</code>）</li>
+<li>
+<strong>reduction_dims</strong>：潜在空间维度（整数，默认 <code>30</code>）</li>
+<li>
+<strong>mse_loss</strong>：均方误差损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>tri_loss</strong>：三元组损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>ggae_loss</strong>：图自编码器损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>cos_loss</strong>：余弦相似度损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>bce_loss</strong>：二值交叉熵损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>kl_loss</strong>：KL散度损失权重（数值，默认 <code>1.0</code>）</li>
+<li>
+<strong>K_h</strong>：相似性缩放超参数（数值，默认 <code>5.0</code>）</li>
+<li>
+<strong>verbose</strong>：是否显示进度信息（逻辑值，默认 <code>TRUE</code>）</li>
+</ul>
+</div>
+<div id="返回值-6" class="section level3" number="3.7.3">
+<h3>
+<span class="header-section-number">3.7.3</span> 返回值<a class="anchor" aria-label="anchor" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-6"><i class="fas fa-link"></i></a>
+</h3>
+<p>整合后的Molo对象。</p>
+</div>
+<div id="基础示例-6" class="section level3" number="3.7.4">
+<h3>
+<span class="header-section-number">3.7.4</span> 基础示例<a class="anchor" aria-label="anchor" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-6"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">integrated_obj</span> <span class="op">&lt;-</span> <span class="fu">Molo_Integrate</span><span class="op">(</span>obj_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" target="_blank">list</a></span><span class="op">(</span><span class="va">molo1</span>, <span class="va">molo2</span><span class="op">)</span>,</span>
+<span>                                 var_features <span class="op">=</span> <span class="fl">3000</span><span class="op">)</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%E5%AE%89%E8%A3%85.html"><span class="header-section-number">2</span> 安装</a></div>
+<div class="next"><a href="%E5%9F%BA%E7%A1%80%E6%B5%81%E7%A8%8B.html"><span class="header-section-number">4</span> 基础流程</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#molo-%E5%87%BD%E6%95%B0"><span class="header-section-number">3</span> Molo 函数</a></li>
+<li>
+<a class="nav-link" href="#molo_create"><span class="header-section-number">3.1</span> Molo_Create</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="header-section-number">3.1.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89"><span class="header-section-number">3.1.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="header-section-number">3.1.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B"><span class="header-section-number">3.1.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_reduction_cluster"><span class="header-section-number">3.2</span> Molo_reduction_cluster</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-1"><span class="header-section-number">3.2.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-1"><span class="header-section-number">3.2.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-1"><span class="header-section-number">3.2.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-1"><span class="header-section-number">3.2.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_var_features"><span class="header-section-number">3.3</span> Molo_var_features</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-2"><span class="header-section-number">3.3.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-2"><span class="header-section-number">3.3.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="header-section-number">3.3.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-2"><span class="header-section-number">3.3.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_top_go_terms"><span class="header-section-number">3.4</span> Molo_top_GO_terms</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-3"><span class="header-section-number">3.4.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-3"><span class="header-section-number">3.4.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-3"><span class="header-section-number">3.4.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-3"><span class="header-section-number">3.4.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_cell_chat"><span class="header-section-number">3.5</span> Molo_cell_chat</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-4"><span class="header-section-number">3.5.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-4"><span class="header-section-number">3.5.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-4"><span class="header-section-number">3.5.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-4"><span class="header-section-number">3.5.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_traj"><span class="header-section-number">3.6</span> Molo_traj</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-5"><span class="header-section-number">3.6.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-5"><span class="header-section-number">3.6.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-5"><span class="header-section-number">3.6.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-5"><span class="header-section-number">3.6.4</span> 基础示例</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#molo_integrate"><span class="header-section-number">3.7</span> Molo_Integrate</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-6"><span class="header-section-number">3.7.1</span> 功能</a></li>
+<li><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8F%8A%E5%90%AB%E4%B9%89-6"><span class="header-section-number">3.7.2</span> 参数及含义</a></li>
+<li><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-6"><span class="header-section-number">3.7.3</span> 返回值</a></li>
+<li><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B-6"><span class="header-section-number">3.7.4</span> 基础示例</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="book-extra">
+  <ul class="list-unstyled">        
+      <li>
+          <a id="book-source" href="https://github.com/Molo-Y/Molo_Pipeline" target="_blank">
+              Project on Github
+              <img style="height:19px!important;margin-left:2px;vertical-align:text-bottom;" src="logo/github.svg" alt="">
+          </a>
+      </li>
+      <li>
+          <a id="book-edit" href="https://github.com/Molo-Y" target="_blank">
+              Author Home Page 
+              <img style="height:21.5px!important;margin-left:1px;vertical-align:text-bottom;" src="logo/home.svg" alt="">
+          </a>
+      </li>
+  </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5" style="background-color: #C49BEB;">
+  <style>
+    footer a {
+      color: #79DAC7;
+    }
+    .center-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+    .row {
+      justify-content: center;
+    }
+  </style>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3 center-content">
+        <p>
+          <a property="dct:title" rel="cc:attributionURL" href="https://github.com/Molo-Y/Molo_Pipeline" target="_blank">Molo Pipeline</a> by 
+          <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/Molo-Y" target="_blank">Xu Gaoyuan</a> is licensed under 
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+            CC BY-NC-SA 4.0
+          </a>
+            <img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="logo/cc.svg" alt="">
+            <img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="logo/by.svg" alt="">
+            <img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="logo/nc.svg" alt="">
+            <img style="height:20px!important;margin-left:3px;vertical-align:text-bottom;" src="logo/sa.svg" alt="">
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
